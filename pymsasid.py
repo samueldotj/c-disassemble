@@ -23,7 +23,6 @@ class Pymsasid:
         else:
             self.dis_mode = mode
 
-
     def disassemble(self, add):
         try:
             self.seek(add)

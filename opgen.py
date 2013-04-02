@@ -217,6 +217,7 @@ while tlNode and tlNode.localName != 'x86optable': tlNode = tlNode.nextSibling
 # creates a table entry
 #
 def centry(i, defmap):
+    c_syntax = ''
     if defmap['type'][0:3] == 'grp':
         opr    = default_opr
         mnm    = '\'' + defmap['type'].lower() + '\''
@@ -228,12 +229,12 @@ def centry(i, defmap):
         if len(mnm) == 0: mnm = '\'na\''
         if len(opr) == 0: opr = default_opr
         if len(pfx) == 0: pfx = 'P_none'
+        c_syntax = '\'' +  defmap['c_syn'] + '\''
     else:
         opr    = default_opr
         pfx    = 'P_none'
         mnm    = '\'invalid\''
-
-    return '  itab_entry ( %-16s %-26s %s ),\n' % (mnm + ',', opr + ',', pfx)
+    return '  itab_entry ( %-16s %-26s %s %s),\n' % (mnm + ',', opr + ',', pfx + ',', c_syntax)
 
 #
 # makes a new table and adds it to the global
@@ -255,18 +256,22 @@ for node in tlNode.childNodes:
         continue
 
      # we need the operator attribute
-    if not ('operator' in node.attributes.keys()):
-        print ('error: no operator given in <instruction>.')
+    if not ('mnemonic' in node.attributes.keys()):
+        print ('error: no operator given in <instruction>.') 
         sys.exit(-1) 
 
     # check if this instruction was already defined.
     # else add it to the global list of operators
-    operator = node.attributes['operator'].value
+    operator = node.attributes['mnemonic'].value
     if operator in mnm_list:
         print ('error: multiple declarations of operator=\'%s\'' % operator);
         sys.exit(-1)
     else:
         mnm_list.append(operator)
+
+    c_syntax = '${op1} = ${op2}'
+    if 'c_syntax' in node.attributes.keys():
+        c_syntax = node.attributes['c_syntax'].value
 
     #
     # collect instruction 
@@ -470,7 +475,8 @@ for node in tlNode.childNodes:
             'name' : operator, \
             'pfx'  : pfx,      \
             'opr'  : opr,      \
-            'flags': flags     \
+            'flags': flags,    \
+            'c_syn': c_syntax  \
         }
 
 # ---------------------------------------------------------------------

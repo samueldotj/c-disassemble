@@ -49,10 +49,11 @@ class itab_entry:
     def __init__(self, 
                  operator = None, 
                  op1 = O_NONE, op2 = O_NONE, op3 = O_NONE, 
-                 pfx = 0):
+                 pfx = 0, c_syntax = ''):
         self.operator = operator
         self.operand = [op1, op2, op3]
         self.prefix = pfx
+	self.c_syntax = c_syntax
 
 ie_invalid = itab_entry('invalid', O_NONE, O_NONE, O_NONE, P_none)
 ie_pause = itab_entry('pause', O_NONE, O_NONE,    O_NONE, P_none)

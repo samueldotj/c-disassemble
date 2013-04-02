@@ -26,7 +26,7 @@
     <opcode mode="inv64"> ; 3f ; </opcode>
   </instruction>
 
-  <instruction mnemonic="adc">
+  <instruction mnemonic="adc" c_syntax="$op1 += $op2 + eflags.cf">
     <opcode> aso rexr rexx rexb ; 10 ; Eb Gb </opcode>
     <opcode> aso oso rexw rexr rexx rexb ; 11 ; Ev Gv </opcode>
     <opcode> aso rexr rexx rexb ; 12 ; Gb Eb </opcode>
@@ -39,7 +39,7 @@
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; 83 /2 ; Ev Ib </opcode>
   </instruction>
 
-  <instruction mnemonic="add">
+  <instruction mnemonic="add" c_syntax="$op1 += $op2">
     <opcode> aso rexr rexx rexb ; 00 ; Eb Gb </opcode>
     <opcode> aso oso rexw rexr rexx rexb ; 01 ; Ev Gv </opcode>
     <opcode> aso rexr rexx rexb ; 02 ; Gb Eb </opcode>
@@ -76,7 +76,7 @@
     <opcode> aso rexr rexx rexb ; ssef2 0f d0 ; V W </opcode>
   </instruction>
 
-  <instruction mnemonic="and">
+  <instruction mnemonic="and" c_syntax="$op1 &amp;= $op2">
     <opcode> aso rexr rexx rexb ; 20 ; Eb Gb </opcode>
     <opcode> aso oso rexw rexr rexx rexb ; 21 ; Ev Gv </opcode>
     <opcode> aso rexr rexx rexb ; 22 ; Gb Eb </opcode>
@@ -118,15 +118,15 @@
     <opcode mode="inv64"> aso oso ; 62 ; Gv M </opcode>
   </instruction>
 
-  <instruction mnemonic="bsf">
+  <instruction mnemonic="bsf" c_syntax="$op1 = first_set_bit($op2)">
     <opcode> aso oso rexw rexr rexx rexb ; 0f bc ; Gv Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="bsr">
+  <instruction mnemonic="bsr" c_syntax="$op1 = first_set_bit_reverse($op2)">
     <opcode> aso oso rexw rexr rexx rexb ; 0f bd ; Gv Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="bswap">
+  <instruction mnemonic="bswap" c_syntax="$op1 = byte_swap($op1)">
     <opcode> oso rexw rexb ; 0f c8 ; rAXr8 </opcode>
     <opcode> oso rexw rexb ; 0f c9 ; rCXr9 </opcode>
     <opcode> oso rexw rexb ; 0f ca ; rDXr10 </opcode>
@@ -137,54 +137,54 @@
     <opcode> oso rexw rexb ; 0f cf ; rDIr15 </opcode>
   </instruction>
 
-  <instruction mnemonic="bt">
+  <instruction mnemonic="bt" c_syntax="eflags.cf = get_bit($op1, $op2)">
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; 0F BA /4 ; Ev Ib </opcode>
     <opcode> aso oso rexw rexr rexx rexb ; 0f a3 ; Ev Gv </opcode>
   </instruction>
 
-  <instruction mnemonic="btc">
+  <instruction mnemonic="btc" c_syntax="eflags.cf = get_bit_and_complement($op1, $op2)">
     <opcode> aso oso rexw rexr rexx rexb ; 0f bb ; Ev Gv </opcode>
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; 0F BA /7 ; Ev Ib </opcode>
   </instruction>
 
-  <instruction mnemonic="btr">
+  <instruction mnemonic="btr" c_syntax="eflags.cf = get_bit_and_reset($op1, $op2)">
     <opcode> aso oso rexw rexr rexx rexb ; 0f b3 ; Ev Gv </opcode>
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; 0F BA /6 ; Ev Ib </opcode>
   </instruction>
 
-  <instruction mnemonic="bts">
+  <instruction mnemonic="bts" c_syntax="eflags.cf = get_bit_and_set($op1, $op2)">
     <opcode> aso oso rexw rexr rexx rexb ; 0f ab ; Ev Gv </opcode>
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; 0F BA /5 ; Ev Ib </opcode>
   </instruction>
 
-  <instruction mnemonic="call">
+  <instruction mnemonic="call" c_syntax="call $op1">
     <opcode mode="def64" cast="1"> aso oso rexw rexr rexx rexb ; FF /2 ; Ev </opcode>
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; FF /3 ; Ep </opcode>
     <opcode mode="def64"> oso ; e8 ; Jz </opcode>
     <opcode mode="inv64"> oso ; 9a ; Ap </opcode>
   </instruction>
 
-  <instruction mnemonic="cbw">
+  <instruction mnemonic="cbw" c_syntax="ax = sign_extend(al)">
     <opcode> oso rexw ; 98 /O16 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="cwde">
+  <instruction mnemonic="cwde" c_syntax="eax = sign_extend(ax)">
     <opcode> oso rexw ; 98 /O32 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="cdqe">
+  <instruction mnemonic="cdqe" c_syntax="rax = sign_extend(eax)">
     <opcode> oso rexw ; 98 /O64 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="clc">
+  <instruction mnemonic="clc" c_syntax="eflags.cf = 0">
     <opcode> f8 ; </opcode>
   </instruction>
   
-  <instruction mnemonic="cld">
+  <instruction mnemonic="cld" c_syntax="eflags.df = 0">
     <opcode> fc ; </opcode>
   </instruction>
 
-  <instruction mnemonic="clflush">
+  <instruction mnemonic="clflush" c_syntax="flush_cache_line($op1)">
     <opcode> aso rexw rexr rexx rexb ; 0F AE /7 /mod=!11 ; M </opcode>
   </instruction>
 
@@ -193,83 +193,83 @@
     <vendor> AMD </vendor>
   </instruction>
 
-  <instruction mnemonic="cli">
+  <instruction mnemonic="cli" c_syntax="eflags.if = 0">
     <opcode> fa ; </opcode>
   </instruction>
 
-  <instruction mnemonic="clts">
+  <instruction mnemonic="clts" c_syntax="cr0.ts = 0">
     <opcode> 0f 06 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="cmc">
+  <instruction mnemonic="cmc" c_syntax="eflags.cf = !eflags.cf">
     <opcode> f5 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="cmovo">
+  <instruction mnemonic="cmovo" c_syntax="if (eflags.of) $op1 = $op2">
     <opcode> aso oso rexw rexr rexx rexb ; 0f 40 ; Gv Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="cmovno">
+  <instruction mnemonic="cmovno" c_syntax="if (!eflags.of) $op1 = $op2">
     <opcode> aso oso rexw rexr rexx rexb ; 0f 41 ; Gv Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="cmovb">
+  <instruction mnemonic="cmovb" c_syntax="if (eflags.cf) $op1 = $op2">
     <opcode> aso oso rexw rexr rexx rexb ; 0f 42 ; Gv Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="cmovae">
+  <instruction mnemonic="cmovae" c_syntax="if (!eflags.cf) $op1 = $op2">
     <opcode> aso oso rexw rexr rexx rexb ; 0f 43 ; Gv Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="cmovz">
+  <instruction mnemonic="cmovz" c_syntax="if (eflags.zf) $op1 = $op2">
     <opcode> aso oso rexw rexr rexx rexb ; 0f 44 ; Gv Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="cmovnz">
+  <instruction mnemonic="cmovnz" c_syntax="if (!eflags.zf) $op1 = $op2">
     <opcode> aso oso rexw rexr rexx rexb ; 0f 45 ; Gv Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="cmovbe">
+  <instruction mnemonic="cmovbe" c_syntax="if (eflags.cf || eflags.zf) $op1 = $op2">
     <opcode> aso oso rexw rexr rexx rexb ; 0f 46 ; Gv Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="cmova">
+  <instruction mnemonic="cmova" c_syntax="if (!eflags.cf &amp;&amp; !eflags.zf) $op1 = $op2">
     <opcode> aso oso rexw rexr rexx rexb ; 0f 47 ; Gv Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="cmovs">
+  <instruction mnemonic="cmovs" c_syntax="if (eflags.sf) $op1 = $op2">
     <opcode> aso oso rexw rexr rexx rexb ; 0f 48 ; Gv Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="cmovns">
+  <instruction mnemonic="cmovns" c_syntax="if (!eflags.sf) $op1 = $op2">
     <opcode> aso oso rexw rexr rexx rexb ; 0f 49 ; Gv Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="cmovp">
+  <instruction mnemonic="cmovp" c_syntax="if (eflags.pf) $op1 = $op2">
     <opcode> aso oso rexw rexr rexx rexb ; 0f 4a ; Gv Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="cmovnp">
+  <instruction mnemonic="cmovnp" c_syntax="if (!eflags.pf) $op1 = $op2">
     <opcode> aso oso rexw rexr rexx rexb ; 0f 4b ; Gv Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="cmovl">
+  <instruction mnemonic="cmovl" c_syntax="if (eflags.sf != 0xf) $op1 = $op2">
     <opcode> aso oso rexw rexr rexx rexb ; 0f 4c ; Gv Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="cmovge">
+  <instruction mnemonic="cmovge" c_syntax="if (eflags.sf == 0xf) $op1 = $op2">
     <opcode> aso oso rexw rexr rexx rexb ; 0f 4d ; Gv Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="cmovle">
+  <instruction mnemonic="cmovle" c_syntax="if (eflags.zf &amp;&amp; eflags.sf != 0xf) $op1 = $op2">
     <opcode> aso oso rexw rexr rexx rexb ; 0f 4e ; Gv Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="cmovg">
+  <instruction mnemonic="cmovg" c_syntax="if (!eflags.zf &amp;&amp; eflags.sf == 0xf) $op1 = $op2" >
     <opcode> aso oso rexw rexr rexx rexb ; 0f 4f ; Gv Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="cmp">
+  <instruction mnemonic="cmp" c_syntax="eflags._f = $op2 - $op1">
     <opcode> aso rexr rexx rexb ; 38 ; Eb Gb </opcode>
     <opcode> aso oso rexw rexr rexx rexb ; 39 ; Ev Gv </opcode>
     <opcode> aso rexr rexx rexb ; 3a ; Gb Eb </opcode>
@@ -311,12 +311,12 @@
     <opcode> aso rexr rexx rexb ; ssef3 0f c2 ; V W Ib </opcode>
   </instruction>
 
-  <instruction mnemonic="cmpxchg">
+  <instruction mnemonic="cmpxchg" c_syntax="if(rdx:rax == $op1) {eflags.zf = 1; $op1 = rcx:rbx;} else {eflags.zf = 0; rdx:rax = $op1}">
     <opcode> aso rexr rexx rexb ; 0f b0 ; Eb Gb </opcode>
     <opcode> aso oso rexw rexr rexx rexb ; 0f b1 ; Ev Gv </opcode>
   </instruction>
 
-  <instruction mnemonic="cmpxchg8b">
+  <instruction mnemonic="cmpxchg8b" c_syntax="if(edx:eax == $op1) {eflags.zf = 1; $op1 = ecx:ebx;} else {eflags.zf = 0; edx:eax = $op1}">
     <opcode> aso rexr rexx rexb ; 0F C7 /1 ; M </opcode>
   </instruction>
 
@@ -328,7 +328,7 @@
     <opcode> aso rexr rexx rexb ; 0f 2f ; V W </opcode>
   </instruction>
 
-  <instruction mnemonic="cpuid">
+  <instruction mnemonic="cpuid" c_syntax="cpuid()">
     <opcode> 0f a2 ; </opcode>
   </instruction>
 
@@ -420,15 +420,15 @@
     <opcode cast="1"> aso rexr rexx rexb ; ssef3 0f 2c ; Gvw W </opcode>
   </instruction>
 
-  <instruction mnemonic="cwd">
+  <instruction mnemonic="cwd" c_syntax="if (ax &amp; (1 &lt;&lt; 15)) {dx = -1;} else {dx = 0;}">
     <opcode> oso rexw ; 99 /O16 ;  </opcode>
   </instruction>
 
-  <instruction mnemonic="cdq">
+  <instruction mnemonic="cdq" c_syntax="if (eax &amp; (1 &lt;&lt; 15)) {edx = -1;} else {edx = 0;}">
     <opcode> oso rexw ; 99 /O32 ;  </opcode>
   </instruction>
 
-  <instruction mnemonic="cqo">
+  <instruction mnemonic="cqo" c_syntax="if (rax &amp; (1 &lt;&lt; 15)) {rdx = -1;} else {rdx = 0;}">
     <opcode> oso rexw ; 99 /O64 ;  </opcode>
   </instruction>
 
@@ -440,7 +440,7 @@
     <opcode mode="inv64"> ; 2f ; </opcode>
   </instruction>
 
-  <instruction mnemonic="dec">
+  <instruction mnemonic="dec" c_syntax="${op1}--">
     <opcode> oso ; 48 ; eAX </opcode>
     <opcode> oso ; 49 ; eCX </opcode>
     <opcode> oso ; 4a ; eDX </opcode>
@@ -453,7 +453,7 @@
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; FF /1 ; Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="div">
+  <instruction mnemonic="div" c_syntax="eax /= $op1; edx %= $op1">
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; F7 /6 ; Ev </opcode>
     <opcode cast="1"> aso rexw rexr rexx rexb ; F6 /6 ; Eb </opcode>
   </instruction>
@@ -478,7 +478,7 @@
     <opcode> 0f 77 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="enter">
+  <instruction mnemonic="enter" c_syntax="ebp => stack; ebp = esp; esp += $op1; nesting($op2)">
     <opcode mode="def64 depM"> ; c8 ; Iw Ib </opcode>
   </instruction>
 
@@ -1357,7 +1357,7 @@
     <opcode> aso rexr rexx rexb ; ssef2 0f 7c ; V W </opcode>
   </instruction>
 
-  <instruction mnemonic="hlt">
+  <instruction mnemonic="hlt" c_syntax="hlt()">
     <opcode> f4 ; </opcode>
   </instruction>
 
@@ -1369,19 +1369,19 @@
     <opcode> aso rexr rexx rexb ; ssef2 0f 7d ; V W </opcode>
   </instruction>
 
-  <instruction mnemonic="idiv">
+  <instruction mnemonic="idiv" c_syntax="eax /= $op1; edx %= $op1">
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; F7 /7 ; Ev </opcode>
     <opcode cast="1"> aso rexw rexr rexx rexb ; F6 /7 ; Eb </opcode>
   </instruction>
 
-  <instruction mnemonic="in">
+  <instruction mnemonic="in" c_syntax="$op1 = in($op2)">
     <opcode> ; e4 ; AL Ib </opcode>
     <opcode> oso ; e5 ; eAX Ib </opcode>
     <opcode> ec ; AL DX </opcode>
     <opcode> oso ; ed ; eAX DX </opcode>
   </instruction>
 
-  <instruction mnemonic="imul">
+  <instruction mnemonic="imul" c_syntax="$op1 *= $op2 * $op3">
     <opcode> aso oso rexw rexr rexx rexb ; 0f af ; Gv Ev </opcode>
     <opcode cast="1"> aso rexw rexr rexx rexb ; F6 /5 ; Eb </opcode>
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; F7 /5 ; Ev </opcode>
@@ -1389,7 +1389,7 @@
     <opcode> aso oso rexw rexr rexx rexb ; 6b ; Gv Ev Ib </opcode>
   </instruction>
 
-  <instruction mnemonic="inc">
+  <instruction mnemonic="inc" c_syntax="$op1++">
     <opcode> oso ; 40 ; eAX </opcode>
     <opcode> oso ; 41 ; eCX </opcode>
     <opcode> oso ; 42 ; eDX </opcode>
@@ -1402,15 +1402,15 @@
     <opcode cast="1"> aso rexw rexr rexx rexb ; FE /0 ; Eb </opcode>
   </instruction>
 
-  <instruction mnemonic="insb">
+  <instruction mnemonic="insb" c_syntax="*((uint8_t *)(es:rdi)) = (uint8_t)$op1">
     <opcode> ; 6c ; </opcode>
   </instruction>
 
-  <instruction mnemonic="insw">
+  <instruction mnemonic="insw" c_syntax="*((uint16_t *)(es:rdi)) = (uint16_t)$op1">
     <opcode> oso ; 6d /O16 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="insd">
+  <instruction mnemonic="insd" c_syntax="*((uint32_t *)(es:rdi)) = (uint32_t)$op1">
     <opcode> oso ; 6d /O32 ; </opcode>
   </instruction>
 
@@ -1418,136 +1418,136 @@
     <opcode> f1 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="int3">
+  <instruction mnemonic="int3" c_syntax="trap_to_debugger()">
     <opcode> ; cc ; </opcode>
   </instruction>
 
-  <instruction mnemonic="int">
+  <instruction mnemonic="int" c_syntax="interrupt($op1)">
     <opcode> ; cd ; Ib </opcode>
   </instruction>
 
-  <instruction mnemonic="into">
+  <instruction mnemonic="into" c_syntax="if (eflags.of) interrupt(4)">
     <opcode mode="inv64"> ; ce ; </opcode>
   </instruction>
 
-  <instruction mnemonic="invd">
+  <instruction mnemonic="invd" c_syntax="flush_internal_cache(); init_flush_external_cache()">
     <opcode> 0f 08 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="invlpg">
+  <instruction mnemonic="invlpg" c_syntax="invalidate_tlb($op1)">
     <opcode> aso rexr rexx rexb ; 0F 01 /7 /mod=!11 ; M </opcode>
   </instruction>
 
-  <instruction mnemonic="invlpga">
+  <instruction mnemonic="invlpga" c_syntax="invalidate_tlb_all()">
     <opcode> 0F 01 /3 /mod=11 /rm=7 ; </opcode>
     <vendor> AMD </vendor>
   </instruction>
 
-  <instruction mnemonic="iretw">
+  <instruction mnemonic="iretw" c_syntax="interrupt_return">
     <opcode> oso rexw ; cf /O16 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="iretd">
+  <instruction mnemonic="iretd" c_syntax="interrupt_return">
     <opcode> oso rexw ; cf /O32 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="iretq">
+  <instruction mnemonic="iretq" c_syntax="interrupt_return">
     <opcode> oso rexw ; cf /O64 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="jo">
+  <instruction mnemonic="jo" c_syntax="if (eflags.of) goto $op1">
     <opcode> ; 70 ; Jb </opcode>
     <opcode mode="def64 depM" cast="1"> oso ; 0f 80 ; Jz </opcode>
   </instruction>
 
-  <instruction mnemonic="jno">
+  <instruction mnemonic="jno" c_syntax="if (!eflags.of) goto $op1">
     <opcode> ; 71 ; Jb </opcode>
     <opcode mode="def64 depM" cast="1"> oso ; 0f 81 ; Jz </opcode>
   </instruction>
 
-  <instruction mnemonic="jb">
+  <instruction mnemonic="jb" c_syntax="if (eflags.cf) goto $op1">
     <opcode> ; 72 ; Jb </opcode>
     <opcode mode="def64 depM" cast="1"> oso ; 0f 82 ; Jz </opcode>
   </instruction>
 
-  <instruction mnemonic="jae">
+  <instruction mnemonic="jae" c_syntax="if (!eflags.cf) goto $op1">
     <opcode> ; 73 ; Jb </opcode>
     <opcode mode="def64 depM" cast="1"> oso ; 0f 83 ; Jz </opcode>
   </instruction>
 
-  <instruction mnemonic="jz">
+  <instruction mnemonic="jz" c_syntax="if (eflags.zf) goto $op1">
     <opcode> ; 74 ; Jb </opcode>
     <opcode mode="def64 depM" cast="1"> oso ; 0f 84 ; Jz </opcode>
   </instruction>
 
-  <instruction mnemonic="jnz">
+  <instruction mnemonic="jnz" c_syntax="if (!eflags.zf) goto $op1">
     <opcode> ; 75 ; Jb </opcode>
     <opcode mode="def64 depM" cast="1"> oso ; 0f 85 ; Jz </opcode>
   </instruction>
 
-  <instruction mnemonic="jbe">
+  <instruction mnemonic="jbe" c_syntax="if (eflags.cf || eflags.zf) goto $op1">
     <opcode> ; 76 ; Jb </opcode>
     <opcode mode="def64 depM" cast="1"> oso ; 0f 86 ; Jz </opcode>
   </instruction>
 
-  <instruction mnemonic="ja">
+  <instruction mnemonic="ja" c_syntax="if (!eflags.cf &amp;&amp; !eflags.zf) goto $op1">
     <opcode> ; 77 ; Jb </opcode>
     <opcode mode="def64 depM" cast="1"> oso ; 0f 87 ; Jz </opcode>
   </instruction>
 
-  <instruction mnemonic="js">
+  <instruction mnemonic="js" c_syntax="if (eflags.sf) goto $op1">
     <opcode> ; 78 ; Jb </opcode>
     <opcode mode="def64 depM" cast="1"> oso ; 0f 88 ; Jz </opcode>
   </instruction>
 
-  <instruction mnemonic="jns">
+  <instruction mnemonic="jns" c_syntax="if (!eflags.sf) goto $op1">
     <opcode> ; 79 ; Jb </opcode>
     <opcode mode="def64 depM" cast="1"> oso ; 0f 89 ; Jz </opcode>
   </instruction>
 
-  <instruction mnemonic="jp">
+  <instruction mnemonic="jp" c_syntax="if (eflags.pf) goto $op1">
     <opcode> ; 7a ; Jb </opcode>
     <opcode mode="def64 depM" cast="1"> oso ; 0f 8a ; Jz </opcode>
   </instruction>
 
-  <instruction mnemonic="jnp">
+  <instruction mnemonic="jnp" c_syntax="if (!eflags.pf) goto $op1">
     <opcode> ; 7b ; Jb </opcode>
     <opcode mode="def64 depM" cast="1"> oso ; 0f 8b ; Jz </opcode>
   </instruction>
 
-  <instruction mnemonic="jl">
+  <instruction mnemonic="jl" c_syntax="if (eflags.sf != 0xf) goto $op1">
     <opcode> ; 7c ; Jb </opcode>
     <opcode mode="def64 depM" cast="1"> oso ; 0f 8c ; Jz </opcode>
   </instruction>
 
-  <instruction mnemonic="jge">
+  <instruction mnemonic="jge" c_syntax="if (eflags.sf == 0xf) goto $op1">
     <opcode> ; 7d ; Jb </opcode>
     <opcode mode="def64 depM" cast="1"> oso ; 0f 8d ; Jz </opcode>
   </instruction>
 
-  <instruction mnemonic="jle">
+  <instruction mnemonic="jle" c_syntax="if (eflags.zf || eflags.sf != 0xf) goto $op1">
     <opcode> ; 7e ; Jb </opcode>
     <opcode mode="def64 depM" cast="1"> oso ; 0f 8e ; Jz </opcode>
   </instruction>
 
-  <instruction mnemonic="jg">
+  <instruction mnemonic="jg" c_syntax="if (!eflags.zf &amp;&amp; eflags.sf == 0xf) goto $op1">
     <opcode> ; 7f ; Jb </opcode>
     <opcode mode="def64 depM" cast="1"> oso ; 0f 8f ; Jz </opcode>
   </instruction>
 
-  <instruction mnemonic="jcxz">
+  <instruction mnemonic="jcxz" c_syntax="if (cx == 0) goto $op1">
     <opcode> aso ; e3 /A16 ; Jb </opcode>
   </instruction>
 
-  <instruction mnemonic="jecxz">
+  <instruction mnemonic="jecxz" c_syntax="if (ecx == 0) goto $op1">
     <opcode> aso ; e3 /A32 ; Jb </opcode>
   </instruction>
 
-  <instruction mnemonic="jrcxz">
+  <instruction mnemonic="jrcxz" c_syntax="if (rcx == 0) goto $op1">
     <opcode> aso ; e3 /A64 ; Jb </opcode>
   </instruction>
 
-  <instruction mnemonic="jmp">
+  <instruction mnemonic="jmp" c_syntax="goto $op1">
     <opcode mode="def64 depM" cast="1"> aso oso rexw rexr rexx rexb ; FF /4 ; Ev </opcode>
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; FF /5 ; Ep </opcode>
     <opcode mode="def64 depM"> oso ; e9 ; Jz </opcode>
@@ -1555,11 +1555,11 @@
     <opcode> eb ; Jb </opcode>
   </instruction>
 
-  <instruction mnemonic="lahf">
+  <instruction mnemonic="lahf" c_syntax="ah = eflags(sf | zf | 0 | af | 0 | pf | cf)">
     <opcode> ; 9f ; </opcode>
   </instruction>
 
-  <instruction mnemonic="lar">
+  <instruction mnemonic="lar" c_syntax="$op1 = access_write($op2) &amp; 0xff00">
     <opcode> aso oso rexw rexr rexx rexb ; 0f 02 ; Gv Ew </opcode>
   </instruction>
 
@@ -1571,11 +1571,11 @@
     <opcode> aso rexw rexr rexx rexb ; 0F AE /2 ; Md </opcode>
   </instruction>
 
-  <instruction mnemonic="lds">
+  <instruction mnemonic="lds" c_syntax="ds:$op1 = $op2">
     <opcode mode="inv64"> aso oso ; c5 ; Gv M </opcode>
   </instruction>
 
-  <instruction mnemonic="lea">
+  <instruction mnemonic="lea" c_syntax="$op1 = &amp;$op2">
     <opcode> aso oso rexw rexr rexx rexb ; 8d ; Gv M </opcode>
   </instruction>
 
@@ -1599,11 +1599,11 @@
     <opcode> aso oso rexw rexr rexx rexb ; 0f b2 ; Gz M </opcode>
   </instruction>
 
-  <instruction mnemonic="leave">
+  <instruction mnemonic="leave" c_syntax="esp = ebp; ebp &lt;= stack">
     <opcode> ; c9 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="lfence">
+  <instruction mnemonic="lfence" c_syntax="serialize_load_operations()">
     <opcode> 0F AE /5 /mod=11 /rm=0 ; </opcode>
     <opcode> 0F AE /5 /mod=11 /rm=1 ; </opcode>
     <opcode> 0F AE /5 /mod=11 /rm=2 ; </opcode>
@@ -1614,56 +1614,56 @@
     <opcode> 0F AE /5 /mod=11 /rm=7 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="lgdt">
+  <instruction mnemonic="lgdt" c_syntax="gdtr = $op1">
     <opcode> aso rexr rexx rexb ; 0F 01 /2 /mod=!11 ; M </opcode>
   </instruction>
 
-  <instruction mnemonic="lldt">
+  <instruction mnemonic="lldt" c_syntax="idtr = $op1">
     <opcode> aso rexr rexx rexb ; 0F 00 /2 ; Ew </opcode>
   </instruction>
 
-  <instruction mnemonic="lmsw">
+  <instruction mnemonic="lmsw" c_syntax="cr0[0-15] = $op1">
     <opcode> aso rexr rexx rexb ; 0F 01 /6 /mod=!11 ; Ew </opcode>
   </instruction>
 
-  <instruction mnemonic="lock">
+  <instruction mnemonic="lock" c_syntax="lock()">
     <opcode> f0 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="lodsb">
+  <instruction mnemonic="lodsb" c_syntax="$op1 = es:esi">
     <opcode imp_addr="1"> ; ac ; </opcode>
   </instruction>
 
-  <instruction mnemonic="lodsw">
+  <instruction mnemonic="lodsw" c_syntax="$op1 = es:esi">
     <opcode imp_addr="1"> oso rexw ; ad /O16 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="lodsd">
+  <instruction mnemonic="lodsd" c_syntax="$op1 = es:esi">
     <opcode imp_addr="1"> oso rexw ; ad /O32 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="lodsq">
+  <instruction mnemonic="lodsq" c_syntax="$op1 = es:esi">
     <opcode imp_addr="1"> oso rexw ; ad /O64 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="loopnz">
+  <instruction mnemonic="loopnz" c_syntax="ecx--; if(ecx &amp;&amp; !eflags.zf) goto $op1">
     <opcode> ; e0 ; Jb </opcode>
   </instruction>
 
-  <instruction mnemonic="loope">
+  <instruction mnemonic="loope" c_syntax="ecx--; if(ecx &amp;&amp; eflags.zf) goto $op1">
     <opcode> ; e1 ; Jb </opcode>
   </instruction>
 
-  <instruction mnemonic="loop">
+  <instruction mnemonic="loop" c_syntax="ecx--; if(ecx) goto $op1">
     <opcode> ; e2 ; Jb </opcode>
     <mode> def64 depM </mode>
   </instruction>
 
-  <instruction mnemonic="lsl">
+  <instruction mnemonic="lsl" c_syntax="$op1 = segment_limit($op2)">
     <opcode> aso oso rexw rexr rexx rexb ; 0f 03 ; Gv Ew </opcode>
   </instruction>
 
-  <instruction mnemonic="ltr">
+  <instruction mnemonic="ltr" c_syntax="task_register = $op1">
     <opcode> aso rexr rexx rexb ; 0F 00 /3 ; Ew </opcode>
   </instruction>
 
@@ -1688,7 +1688,7 @@
     <opcode> aso rexr rexx rexb ; ssef3 0f 5f ; V W </opcode>
   </instruction>
 
-  <instruction mnemonic="mfence">
+  <instruction mnemonic="mfence" c_syntax="serialize_load_and_store_operations()">
     <opcode> 0F AE /6 /mod=11 /rm=0 ; </opcode>
     <opcode> 0F AE /6 /mod=11 /rm=1 ; </opcode>
     <opcode> 0F AE /6 /mod=11 /rm=2 ; </opcode>
@@ -1715,11 +1715,11 @@
     <opcode> aso rexr rexx rexb ; ssef3 0f 5d ; V W </opcode>
   </instruction>
 
-  <instruction mnemonic="monitor">
+  <instruction mnemonic="monitor" c_syntax="monitor(eax, ecx, edx)">
     <opcode> 0F 01 /1 /mod=11 /rm=0 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="mov">
+  <instruction mnemonic="mov" c_syntax="$op1 = $op2">
     <opcode cast="1"> aso rexw rexr rexx rexb ; C6 /0 ; Eb Ib </opcode>
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; C7 /0 ; Ev Iz </opcode>
     <opcode> aso rexr rexx rexb ; 88 ; Eb Gb </opcode>
@@ -1855,21 +1855,21 @@
     <opcode> aso ; ssef3 0f d6 ; V PR </opcode>
   </instruction>
 
-  <instruction mnemonic="movsb">
+  <instruction mnemonic="movsb" c_syntax="*((uint8_t *)(ds:esi)) = *((uint8_t *)(es:edi))">
     <opcode imp_addr="1"> a4 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="movsw">
+  <instruction mnemonic="movsw" c_syntax="*((uint16_t *)(ds:esi)) = *((uint16_t *)(es:edi))">
     <opcode imp_addr="1"> oso rexw ; a5 /O16 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="movsd">
+  <instruction mnemonic="movsd" c_syntax="*((uint32_t *)(ds:esi)) = *((uint32_t *)(es:edi))">
     <opcode imp_addr="1"> oso rexw ; a5 /O32 ; </opcode>
     <opcode> aso rexr rexx rexb ; ssef2 0f 10 ; V W </opcode>
     <opcode> aso rexr rexx rexb ; ssef2 0f 11 ; W V </opcode>
   </instruction>
 
-  <instruction mnemonic="movsq">
+  <instruction mnemonic="movsq" c_syntax="*((uint64_t *)(ds:esi)) = *((uint64_t *)(es:edi))">
     <opcode imp_addr="1"> oso rexw ; a5 /O64 ; </opcode>
   </instruction>
 
@@ -1886,7 +1886,7 @@
     <opcode> aso rexr rexx rexb ; ssef3 0f 11 ; W V </opcode>
   </instruction>
 
-  <instruction mnemonic="movsx">
+  <instruction mnemonic="movsx" c_syntax="$op1 = sign_extend($op2)">
     <opcode cast="2"> aso oso rexw rexr rexx rexb ; 0f be ; Gv Eb </opcode>
     <opcode cast="2"> aso oso rexw rexr rexx rexb ; 0f bf ; Gv Ew </opcode>
   </instruction>
@@ -1901,12 +1901,12 @@
     <opcode> aso rexr rexx rexb ; 0f 11 ; W V </opcode>
   </instruction>
 
-  <instruction mnemonic="movzx">
+  <instruction mnemonic="movzx" c_syntax="$op1 = $op2">
     <opcode cast="2"> aso oso rexw rexr rexx rexb ; 0f b6 ; Gv Eb </opcode>
     <opcode cast="2"> aso oso rexw rexr rexx rexb ; 0f b7 ; Gv Ew </opcode>
   </instruction>
 
-  <instruction mnemonic="mul">
+  <instruction mnemonic="mul" c_syntax="edx:eax = eax * $op1">
     <opcode cast="1"> aso rexw rexr rexx rexb ; F6 /4 ; Eb </opcode>
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; F7 /4 ; Ev </opcode>
   </instruction>
@@ -1927,11 +1927,11 @@
     <opcode> aso rexr rexx rexb ; ssef3 0f 59 ; V W </opcode>
   </instruction>
 
-  <instruction mnemonic="mwait">
+  <instruction mnemonic="mwait" c_syntax="mwait()">
     <opcode> 0F 01 /1 /mod=11 /rm=1 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="neg">
+  <instruction mnemonic="neg" c_syntax="$op1 = ~$op1 + 1">
     <opcode cast="1"> aso rexw rexr rexx rexb ; F6 /3 ; Eb </opcode>
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; F7 /3 ; Ev </opcode>
   </instruction>
@@ -1947,12 +1947,12 @@
     <opcode> aso rexr rexx rexb ; 0f 1f ; M </opcode>
   </instruction>
 
-  <instruction mnemonic="not">
+  <instruction mnemonic="not" c_syntax="$op1 = ~$op1">
     <opcode cast="1"> aso rexw rexr rexx rexb ; F6 /2 ; Eb </opcode>
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; F7 /2 ; Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="or">
+  <instruction mnemonic="or" c_syntax="$op1 |= $op2">
     <opcode> aso rexr rexx rexb ; 08 ; Eb Gb </opcode>
     <opcode> aso oso rexw rexr rexx rexb ; 09 ; Ev Gv </opcode>
     <opcode> aso rexr rexx rexb ; 0a ; Gb Eb </opcode>
@@ -1973,7 +1973,7 @@
     <opcode> aso rexr rexx rexb ; 0f 56 ; V W </opcode>
   </instruction>
 
-  <instruction mnemonic="out">
+  <instruction mnemonic="out" c_syntax="out(eax, $op1)">
     <opcode> ; e6 ; Ib AL </opcode>
     <opcode> oso ; e7 ; Ib eAX </opcode>
     <opcode> ; ee ; DX AL </opcode>
@@ -2054,7 +2054,7 @@
     <opcode> aso rexr rexx rexb ; 0f df ; P Q </opcode>
   </instruction>
 
-  <instruction mnemonic="pause">
+  <instruction mnemonic="pause" c_syntax="pause()">
     <opcode> ; f3 90 ; </opcode> 
   </instruction>
 
@@ -2158,7 +2158,7 @@
     <opcode> aso rexr rexx rexb ; sse66 0f f4 ; V W </opcode>
   </instruction>
 
-  <instruction mnemonic="pop">
+  <instruction mnemonic="pop" c_syntax="$op1 &lt;= stack">
     <opcode mode="inv64"> ; 07 ; ES </opcode>
     <opcode mode="inv64"> ; 17 ; SS </opcode>
     <opcode mode="inv64"> ; 1f ; DS </opcode>
@@ -2183,17 +2183,17 @@
     <opcode mode="inv64"> oso ; 61 /O32 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="popfw">
+  <instruction mnemonic="popfw" c_syntax="flags &lt;= stack">
     <opcode mode="def64 depM"> oso ; 9d /M32 /O16 ; </opcode>
     <opcode mode="def64 depM"> oso ; 9d /M16 /O16 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="popfd">
+  <instruction mnemonic="popfd" c_syntax="eflags &lt;= stack">
     <opcode mode="def64 depM"> oso ; 9d /M16 /O32 ; </opcode>
     <opcode mode="def64 depM"> oso ; 9d /M32 /O32 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="popfq">
+  <instruction mnemonic="popfq" c_syntax="rflags &lt;= stack">
     <opcode mode="def64 depM"> oso ; 9d /M64 ; </opcode>
   </instruction>
 
@@ -2202,7 +2202,7 @@
     <opcode> aso rexr rexx rexb ; 0f eb ; P Q </opcode>
   </instruction>
 
-  <instruction mnemonic="prefetch">
+  <instruction mnemonic="prefetch" c_syntax="prefetch($op1)">
     <opcode> aso rexw rexr rexx rexb ; 0F 0D /0 ; M </opcode>
     <opcode> aso rexw rexr rexx rexb ; 0F 0D /1 ; M </opcode>
     <opcode> aso rexw rexr rexx rexb ; 0F 0D /2 ; M </opcode>
@@ -2213,19 +2213,19 @@
     <opcode> aso rexw rexr rexx rexb ; 0F 0D /7 ; M </opcode>
   </instruction>
 
-  <instruction mnemonic="prefetchnta">
+  <instruction mnemonic="prefetchnta" c_syntax="prefetch($op1, HINT_NON_TEMPORAL)">
     <opcode> aso rexw rexr rexx rexb ; 0F 18 /0 ; M </opcode>
   </instruction>
 
-  <instruction mnemonic="prefetcht0">
+  <instruction mnemonic="prefetcht0" c_syntax="prefetch($op1, HINT_TEMPORAL0)">
     <opcode> aso rexw rexr rexx rexb ; 0F 18 /1 ; M </opcode>
   </instruction>
 
-  <instruction mnemonic="prefetcht1">
+  <instruction mnemonic="prefetcht1" c_syntax="prefetch($op1, HINT_TEMPORAL1)">
     <opcode> aso rexw rexr rexx rexb ; 0F 18 /2 ; M </opcode>
   </instruction>
 
-  <instruction mnemonic="prefetcht2">
+  <instruction mnemonic="prefetcht2" c_syntax="prefetch($op1, HINT_TEMPORAL2)">
     <opcode> aso rexw rexr rexx rexb ; 0F 18 /3 ; M </opcode>
   </instruction>
 
@@ -2490,7 +2490,7 @@
     <opcode> ; 0f 0f /3dnow=BF ; P Q </opcode>
   </instruction> 
 
-  <instruction mnemonic="push">
+  <instruction mnemonic="push" c_syntax="${op1} => stack">
     <opcode mode="inv64"> ; 06 ; ES </opcode>
     <opcode mode="inv64"> ; 0e ; CS </opcode>
     <opcode mode="inv64"> ; 16 ; SS </opcode>
@@ -2518,17 +2518,17 @@
     <opcode mode="inv64"> oso ; 60 /O32 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="pushfw">
+  <instruction mnemonic="pushfw" c_syntax="flags => stack">
     <opcode mode="def64"> oso ; 9c /M32 /O16 ; </opcode>
     <opcode mode="def64"> oso ; 9c /M16 /O16 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="pushfd">
+  <instruction mnemonic="pushfd" c_syntax="eflags => stack">
     <opcode mode="def64"> oso ; 9c /M16 /O32 ; </opcode>
     <opcode mode="def64"> oso ; 9c /M32 /O32 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="pushfq">
+  <instruction mnemonic="pushfq" c_syntax="rflags => stack">
     <opcode mode="def64"> oso rexw ; 9c /M64 ; </opcode>
   </instruction>
 
@@ -2537,7 +2537,7 @@
     <opcode> aso rexr rexx rexb ; 0f ef ; P Q </opcode>
   </instruction>
 
-  <instruction mnemonic="rcl">
+  <instruction mnemonic="rcl" c_syntax="$op1 = bit_left_rotate_with_carry($op1, $op2)">
     <opcode cast="1"> aso rexw rexr rexx rexb ; C0 /2 ; Eb Ib </opcode>
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; C1 /2 ; Ev Ib </opcode>
     <opcode cast="1"> aso rexw rexr rexx rexb ; D0 /2 ; Eb I1 </opcode>
@@ -2546,7 +2546,7 @@
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; D1 /2 ; Ev I1 </opcode>
   </instruction>
 
-  <instruction mnemonic="rcr">
+  <instruction mnemonic="rcr" c_syntax="$op1 = bit_right_rotate_with_carry($op1, $op2)">
     <opcode cast="1"> aso rexw rexr rexx rexb ; D0 /3 ; Eb I1 </opcode>
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; C1 /3 ; Ev Ib </opcode>
     <opcode cast="1"> aso rexw rexr rexx rexb ; C0 /3 ; Eb Ib </opcode>
@@ -2555,7 +2555,7 @@
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; D3 /3 ; Ev CL </opcode>
   </instruction>
 
-  <instruction mnemonic="rol">
+  <instruction mnemonic="rol" c_syntax="$op1 = bit_left_rotate($op1, $op2)">
     <opcode cast="1"> aso rexw rexr rexx rexb ; C0 /0 ; Eb Ib </opcode>
     <opcode cast="1"> aso rexw rexr rexx rexb ; D0 /0 ; Eb I1 </opcode>
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; D1 /0 ; Ev I1 </opcode>
@@ -2564,7 +2564,7 @@
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; C1 /0 ; Ev Ib </opcode>
   </instruction>
 
-  <instruction mnemonic="ror">
+  <instruction mnemonic="ror" c_syntax="$op1 = bit_right_rotate($op1, $op2)">
     <opcode cast="1"> aso rexw rexr rexx rexb ; D0 /1 ; Eb I1 </opcode>
     <opcode cast="1"> aso rexw rexr rexx rexb ; C0 /1 ; Eb Ib </opcode>
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; C1 /1 ; Ev Ib </opcode>
@@ -2581,19 +2581,19 @@
     <opcode> aso rexr rexx rexb ; ssef3 0f 53 ; V W </opcode>
   </instruction>
 
-  <instruction mnemonic="rdmsr">
+  <instruction mnemonic="rdmsr" c_syntax="edx:eax = read_msr(ecx)">
     <opcode> 0f 32 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="rdpmc">
+  <instruction mnemonic="rdpmc" c_syntax="edx:eax = read_pmc(ecx)">
     <opcode> 0f 33 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="rdtsc">
+  <instruction mnemonic="rdtsc" c_syntax="edx:eax = read_tsc()">
     <opcode> 0f 31 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="rdtscp">
+  <instruction mnemonic="rdtscp" c_syntax="edx:eax = read_tsc(); ecx = processor_id">
     <opcode> 0F 01 /7 /mod=11 /rm=1 ; </opcode>  
     <vendor> AMD </vendor>
   </instruction>
@@ -2606,7 +2606,7 @@
     <opcode> f3 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="ret">
+  <instruction mnemonic="ret" c_syntax="return">
     <opcode> ; c2 ; Iw </opcode>
     <opcode> ; c3 ; </opcode> 
   </instruction>
@@ -2616,7 +2616,7 @@
     <opcode> ; cb ; </opcode>
   </instruction>
 
-  <instruction mnemonic="rsm">
+  <instruction mnemonic="rsm" c_syntax="smm_return">
     <opcode> 0f aa ; </opcode>
   </instruction>
 
@@ -2632,7 +2632,7 @@
     <opcode> ; 9e ; </opcode>
   </instruction>
 
-  <instruction mnemonic="sal">
+  <instruction mnemonic="sal" c_syntax="$op1 &lt;&lt;= $op2">
 
   </instruction>
 
@@ -2640,7 +2640,7 @@
     <opcode mode="inv64"> ; d6 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="sar">
+  <instruction mnemonic="sar" c_syntax="$op1 ->>= $op2;">
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; D1 /7 ; Ev I1 </opcode>
     <opcode cast="1"> aso rexw rexr rexx rexb ; C0 /7 ; Eb Ib </opcode>
     <opcode cast="1"> aso rexw rexr rexx rexb ; D0 /7 ; Eb I1 </opcode>
@@ -2649,7 +2649,7 @@
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; D3 /7 ; Ev CL </opcode>
   </instruction>
 
-  <instruction mnemonic="shl">
+  <instruction mnemonic="shl" c_syntax="$op1 &lt;&lt;= $op2">
     <opcode cast="1"> aso rexw rexr rexx rexb ; C0 /6 ; Eb Ib </opcode>
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; C1 /6 ; Ev Ib </opcode>
     <opcode cast="1"> aso rexw rexr rexx rexb ; D0 /6 ; Eb I1 </opcode>
@@ -2664,7 +2664,7 @@
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; D1 /6 ; Ev I1 </opcode>
   </instruction>
 
-  <instruction mnemonic="shr">
+  <instruction mnemonic="shr" c_syntax="$op1 >>= $op2">
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; C1 /5 ; Ev Ib </opcode>
     <opcode> aso rexw rexr rexx rexb ; D2 /5 ; Eb CL </opcode>
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; D1 /5 ; Ev I1 </opcode>
@@ -2673,7 +2673,7 @@
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; D3 /5 ; Ev CL </opcode>
   </instruction>
 
-  <instruction mnemonic="sbb">
+  <instruction mnemonic="sbb" c_syntax="$op1 -= $op2 + eflags.cf">
     <opcode> aso rexr rexx rexb ; 18 ; Eb Gb </opcode>
     <opcode> aso oso rexw rexr rexx rexb ; 19 ; Ev Gv </opcode>
     <opcode> aso rexr rexx rexb ; 1a ; Gb Eb </opcode>
@@ -2686,87 +2686,87 @@
     <opcode cast="1"> aso oso rexw rexr rexx rexb ; 83 /3 ; Ev Ib </opcode>
   </instruction>
 
-  <instruction mnemonic="scasb">
+  <instruction mnemonic="scasb" c_syntax="eflags._f = al - es:edi">
     <opcode> ; ae ; </opcode>
   </instruction>
 
-  <instruction mnemonic="scasw">
+  <instruction mnemonic="scasw" c_syntax="eflags._f = ax - es:edi">
     <opcode> oso rexw ; af /O16 ; </opcode> 
   </instruction>
 
-  <instruction mnemonic="scasd">
+  <instruction mnemonic="scasd" c_syntax="eflags._f = eax - es:edi">
     <opcode> oso rexw ; af /O32 ; </opcode> 
   </instruction>
 
-  <instruction mnemonic="scasq">
+  <instruction mnemonic="scasq" c_syntax="eflags._f = rax - rdi">
     <opcode> oso rexw ; af /O64 ; </opcode> 
   </instruction>
 
-  <instruction mnemonic="seto">
+  <instruction mnemonic="seto" c_syntax="$op1 = (eflags.of ? 1 : 0)">
     <opcode> aso rexr rexx rexb ; 0f 90 ; Eb </opcode>
   </instruction>
 
-  <instruction mnemonic="setno">
+  <instruction mnemonic="setno" c_syntax="$op1 = (!eflags.of ? 1 : 0)">
     <opcode> aso rexr rexx rexb ; 0f 91 ; Eb </opcode>
   </instruction>
 
-  <instruction mnemonic="setb">
+  <instruction mnemonic="setb" c_syntax="$op1 = (eflags.cf ? 1 : 0)">
     <opcode> aso rexr rexx rexb ; 0f 92 ; Eb </opcode>
   </instruction>
 
-  <instruction mnemonic="setnb">
+  <instruction mnemonic="setnb" c_syntax="$op1 = (!eflags.cf ? 1 : 0)">
     <opcode> aso rexr rexx rexb ; 0f 93 ; Eb </opcode>
   </instruction>
 
-  <instruction mnemonic="setz">
+  <instruction mnemonic="setz" c_syntax="$op1 = (eflags.zf ? 1 : 0)">
     <opcode> aso rexr rexx rexb ; 0f 94 ; Eb </opcode>
   </instruction>
 
-  <instruction mnemonic="setnz">
+  <instruction mnemonic="setnz" c_syntax="$op1 = (!eflags.zf ? 1 : 0)">
     <opcode> aso rexr rexx rexb ; 0f 95 ; Eb </opcode>
   </instruction>
 
-  <instruction mnemonic="setbe">
+  <instruction mnemonic="setbe" c_syntax="$op1 = ((eflags.cf || eflags.zf) ? 1 : 0)">
     <opcode> aso rexr rexx rexb ; 0f 96 ; Eb </opcode>
   </instruction>
 
-  <instruction mnemonic="seta">
+  <instruction mnemonic="seta" c_syntax="$op1 = ((!eflags.cf &amp;&amp; !eflags.zf) ? 1 : 0)">
     <opcode> aso rexr rexx rexb ; 0f 97 ; Eb </opcode>
   </instruction>
 
-  <instruction mnemonic="sets">
+  <instruction mnemonic="sets" c_syntax="$op1 = (eflags.sf ? 1 : 0)">
     <opcode> aso rexr rexx rexb ; 0f 98 ; Eb </opcode>
   </instruction>
 
-  <instruction mnemonic="setns">
+  <instruction mnemonic="setns" c_syntax="$op1 = (!eflags.sf ? 1 : 0)">
     <opcode> aso rexr rexx rexb ; 0f 99 ; Eb </opcode>
   </instruction>
 
-  <instruction mnemonic="setp">
+  <instruction mnemonic="setp" c_syntax="$op1 = (eflags.pf ? 1 : 0)">
     <opcode> aso rexr rexx rexb ; 0f 9a ; Eb </opcode>
   </instruction>
 
-  <instruction mnemonic="setnp">
+  <instruction mnemonic="setnp" c_syntax="$op1 = (!eflags.pf ? 1 : 0)">
     <opcode> aso rexr rexx rexb ; 0f 9b ; Eb </opcode>
   </instruction>
 
-  <instruction mnemonic="setl">
+  <instruction mnemonic="setl" c_syntax="$op1 = ((eflags.sf != 0xf) ? 1 : 0)">
     <opcode> aso rexr rexx rexb ; 0f 9c ; Eb </opcode>
   </instruction>
 
-  <instruction mnemonic="setge">
+  <instruction mnemonic="setge" c_syntax="$op1 = ((eflags.sf == 0xf) ? 1 : 0)">
     <opcode> aso rexr rexx rexb ; 0f 9d ; Eb </opcode>
   </instruction>
 
-  <instruction mnemonic="setle">
+  <instruction mnemonic="setle" c_syntax="$op1 = (((eflag.zf) || (eflags.sf != 0xf)) ? 1 : 0)">
     <opcode> aso rexr rexx rexb ; 0f 9e ; Eb </opcode>
   </instruction>
 
-  <instruction mnemonic="setg">
+  <instruction mnemonic="setg" c_syntax="$op1 = (((!eflag.zf) &amp;&amp; (eflags.sf == 0xf)) ? 1 : 0)">
     <opcode> aso rexr rexx rexb ; 0f 9f ; Eb </opcode>
   </instruction>
 
-  <instruction mnemonic="sfence">
+  <instruction mnemonic="sfence" c_syntax="serialize_store_operations()">
     <opcode> 0F AE /7 /mod=11 /rm=0 ; </opcode>
     <opcode> 0F AE /7 /mod=11 /rm=1 ; </opcode>
     <opcode> 0F AE /7 /mod=11 /rm=2 ; </opcode>
@@ -2777,16 +2777,16 @@
     <opcode> 0F AE /7 /mod=11 /rm=7 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="sgdt">
+  <instruction mnemonic="sgdt" c_syntax="$op1 = gdtr">
     <opcode> aso rexr rexx rexb ; 0F 01 /0 /mod=!11 ; M </opcode>
   </instruction>
 
-  <instruction mnemonic="shld">
+  <instruction mnemonic="shld" c_syntax="$op1 = left_shift($op1, $op3, $op2)">
     <opcode> aso oso rexw rexr rexx rexb ; 0f a4 ; Ev Gv Ib </opcode>
     <opcode> aso oso rexw rexr rexx rexb ; 0f a5 ; Ev Gv CL </opcode>
   </instruction>
 
-  <instruction mnemonic="shrd">
+  <instruction mnemonic="shrd" c_syntax="$op1 = right_shift($op1, $op3, $op2)">
     <opcode> aso oso rexw rexr rexx rexb ; 0f ac ; Ev Gv Ib </opcode>
     <opcode> aso oso rexw rexr rexx rexb ; 0f ad ; Ev Gv CL </opcode>
   </instruction>
@@ -2799,15 +2799,15 @@
     <opcode> aso rexr rexx rexb ; 0f c6 ; V W Ib </opcode>
   </instruction>
 
-  <instruction mnemonic="sidt">
+  <instruction mnemonic="sidt" c_sytax="$op1 = idtr">
     <opcode> aso rexr rexx rexb ; 0F 01 /1 /mod=!11 ; M </opcode>
   </instruction>
 
-  <instruction mnemonic="sldt">
+  <instruction mnemonic="sldt" c_syntax="$op1 = ldtr">
     <opcode> aso oso rexr rexx rexb ; 0F 00 /0 ; Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="smsw">
+  <instruction mnemonic="smsw" c_syntax="$op1 = cr0[0-15]">
     <opcode> aso rexr rexx rexb ; 0F 01 /4 /mod=!11 ; M </opcode>
   </instruction>
 
@@ -2827,11 +2827,11 @@
     <opcode> aso rexr rexx rexb ; ssef3 0f 51 ; V W </opcode>
   </instruction>
 
-  <instruction mnemonic="stc">
+  <instruction mnemonic="stc" c_syntax="eflags.cf = 1">
     <opcode> f9 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="std">
+  <instruction mnemonic="std" c_syntax="eflags.df = 1">
     <opcode> fd ; </opcode>
   </instruction>
 
@@ -2840,7 +2840,7 @@
     <vendor> AMD </vendor>
   </instruction>
 
-  <instruction mnemonic="sti">
+  <instruction mnemonic="sti" c_syntax="eflags.if = 1">
     <opcode> fb ; </opcode>
   </instruction>
 
@@ -2853,27 +2853,27 @@
     <opcode> aso rexw rexr rexx rexb ; 0F AE /3 ; Md </opcode>
   </instruction>
 
-  <instruction mnemonic="stosb">
+  <instruction mnemonic="stosb" c_syntax="*((uint8_t *)(es:edi)) = al">
     <opcode imp_addr="1"> ; aa ; </opcode>
   </instruction>
 
-  <instruction mnemonic="stosw">
+  <instruction mnemonic="stosw" c_syntax="*((uint16_t *)(es:edi)) = ax">
     <opcode imp_addr="1"> oso rexw ; ab /O16 ; </opcode> 
   </instruction>
 
-  <instruction mnemonic="stosd">
+  <instruction mnemonic="stosd" c_syntax="*((uint32_t *)(es:edi)) = eax">
     <opcode imp_addr="1"> oso rexw ; ab /O32 ; </opcode> 
   </instruction>
 
-  <instruction mnemonic="stosq">
+  <instruction mnemonic="stosq" c_syntax="*((uint8_t *)(edi)) = rax">
     <opcode imp_addr="1"> oso rexw ; ab /O64 ; </opcode> 
   </instruction>
 
-  <instruction mnemonic="str">
+  <instruction mnemonic="str" c_syntax="$op1 = task_register">
     <opcode> aso oso rexr rexx rexb ; 0F 00 /1 ; Ev </opcode>
   </instruction>
 
-  <instruction mnemonic="sub">
+  <instruction mnemonic="sub" c_syntax="$op1 -= $op2">
     <opcode> aso rexr rexx rexb ; 28 ; Eb Gb </opcode>
     <opcode> aso oso rexw rexr rexx rexb ; 29 ; Ev Gv </opcode>
     <opcode> aso rexr rexx rexb ; 2a ; Gb Eb </opcode>
@@ -2902,27 +2902,27 @@
     <opcode> aso rexr rexx rexb ; ssef3 0f 5c ; V W </opcode>
   </instruction>
 
-  <instruction mnemonic="swapgs">
+  <instruction mnemonic="swapgs" c_syntax="swap(gs, msr_kernel_gs_base)">
     <opcode> 0F 01 /7 /mod=11 /rm=0 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="syscall">
+  <instruction mnemonic="syscall" c_syntax="syscall()">
     <opcode> 0f 05 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="sysenter">
+  <instruction mnemonic="sysenter" c_syntax="sysenter()">
     <opcode mode="inv64"> 0f 34 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="sysexit">
+  <instruction mnemonic="sysexit" c_syntax="sysexit()">
     <opcode> 0f 35 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="sysret">
+  <instruction mnemonic="sysret" c_syntax="sysret()">
     <opcode> 0f 07 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="test">
+  <instruction mnemonic="test" c_syntax="eflags._f = $op1 &amp; $op2">
     <opcode cast="1"> aso rexw rexr rexx rexb ; F6 /0 ; Eb Ib </opcode>
     <opcode> aso rexr rexx rexb ; 84 ; Eb Gb </opcode>
     <opcode> aso oso rexw rexr rexx rexb ; 85 ; Ev Gv </opcode>
@@ -2942,7 +2942,7 @@
     <opcode> aso rexr rexx rexb ; 0f 2e ; V W </opcode>
   </instruction>
 
-  <instruction mnemonic="ud2">
+  <instruction mnemonic="ud2" c_syntax="raise invalid opcode exception">
     <opcode> 0f 0b ; </opcode>
   </instruction>
 
@@ -3029,15 +3029,15 @@
     <opcode> ; 9b ; </opcode>
   </instruction>
 
-  <instruction mnemonic="wbinvd">
+  <instruction mnemonic="wbinvd" c_syntax="write_back();flush_internal_cache();init_external_cache_flush()">
     <opcode> 0f 09 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="wrmsr">
+  <instruction mnemonic="wrmsr" c_syntax="write_msr(ecx, edx:eax)">
     <opcode> 0f 30 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="xadd">
+  <instruction mnemonic="xadd" c_syntax="_temp = $op1 + op2; $op2 = $op1; $op1 = _temp">
     <opcode> aso oso rexr rexx rexb ; 0f c0 ; Eb Gb </opcode>
     <opcode> aso oso rexw rexr rexx rexb ; sse66 0f c1 ; Ev Gv </opcode>
     <opcode> aso rexw rexr rexx rexb ; sse66 0f c0 ; Eb Gb </opcode>
@@ -3048,7 +3048,7 @@
     <opcode> aso oso rexw rexr rexx rexb ; 0f c1 ; Ev Gv </opcode>
   </instruction>
 
-  <instruction mnemonic="xchg">
+  <instruction mnemonic="xchg" c_syntax="_temp = $op1; $op2 = $op1; $op1 = _temp">
     <opcode> aso rexr rexx rexb ; 86 ; Eb Gb </opcode>
     <opcode> aso oso rexw rexr rexx rexb ; 87 ; Ev Gv </opcode>
     <opcode> oso rexw rexb ; 90 ; rAXr8 rAX </opcode>
@@ -3065,7 +3065,7 @@
     <opcode> rexw ; d7 ; </opcode>
   </instruction>
 
-  <instruction mnemonic="xor">
+  <instruction mnemonic="xor" c_syntax="$op1 ^= $op2">
     <opcode> aso rexr rexx rexb ; 30 ; Eb Gb </opcode>
     <opcode> aso oso rexw rexr rexx rexb ; 31 ; Ev Gv </opcode>
     <opcode> aso rexr rexx rexb ; 32 ; Gb Eb </opcode>
